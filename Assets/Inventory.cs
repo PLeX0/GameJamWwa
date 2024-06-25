@@ -15,7 +15,9 @@ public class Inventory : MonoBehaviour
     public GameObject flashLight;
     [SerializeField] private float flashLightTime = 5f;
     public float flashLightCdown = 5f;
-    [SerializeField] private bool isFlashLight;
+    public bool isFlashLight;
+    public Player player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,7 @@ public class Inventory : MonoBehaviour
     {
         if(isFlashLight)
         {
+           
             flashLightTime -= Time.deltaTime;
             if(flashLightTime<=0)
             {
@@ -44,6 +47,7 @@ public class Inventory : MonoBehaviour
                 flashLightCdown = 5f;
             }
         }
+
 
         if(flashLightCdown > 0 && flashLightCdown <= 5f)
         {
