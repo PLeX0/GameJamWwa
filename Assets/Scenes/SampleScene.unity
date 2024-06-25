@@ -795,7 +795,7 @@ GameObject:
   - component: {fileID: 477243987}
   - component: {fileID: 477243986}
   m_Layer: 0
-  m_Name: Apple (1)
+  m_Name: MusicBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 1019438572}
-  itemId: 1
+  itemId: 2
   itemSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!212 &477243988
 SpriteRenderer:
@@ -893,7 +893,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.97735846, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.13263997, b: 0.9764706, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1986,11 +1986,14 @@ MonoBehaviour:
   - {fileID: 1907876356}
   - {fileID: 687185356}
   isActivecDownText: 0000000000
+  isMusicBoxOnSlot: 0000000000
   flashLight: {fileID: 1647300193}
   flashLightTime: 5
   flashLightCdown: 5
   isFlashLight: 0
+  isMusicBox: 0
   player: {fileID: 51909863}
+  scrollCounter: 0
 --- !u!1 &1207327074
 GameObject:
   m_ObjectHideFlags: 0
