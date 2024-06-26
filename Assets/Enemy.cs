@@ -27,16 +27,5 @@ public class Enemy : MonoBehaviour
         }
     }
     
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    timer -= Time.deltaTime;
-    //    if(timer<=0)
-    //    {
-    //        if (playerGameObject.TryGetComponent<Player>(out Player player))
-    //        {
-    //            player.health--;
-    //        }
-    //        timer = 4f;
-    //    }
-    //}
+   
 }
