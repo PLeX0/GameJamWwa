@@ -25,12 +25,12 @@ public class Enemy : MonoBehaviour
         {
             player.inDarkness = true;
         }
-
-        if (collision.gameObject.CompareTag("Lake")) 
+        if(collision.gameObject.tag == "Lake")
         {
-            Debug.Log("woda");
+            Destroy(this.gameObject);
         }
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (playerGameObject.TryGetComponent<Player>(out Player player))
