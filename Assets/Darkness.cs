@@ -24,6 +24,7 @@ public class Darkness : MonoBehaviour
             {
                 player.health--;
                 timer = 5f;
+                GetComponent<AudioSource>().Play();
             }
         }
     }

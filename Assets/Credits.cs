@@ -14,7 +14,7 @@ public class Credits : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position += new Vector3(0, 0.2f, 0);
+        gameObject.transform.position += new Vector3(0, 0.35f, 0);
 
         if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
         {
