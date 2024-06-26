@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(playerGameObject.TryGetComponent<Player>(out Player player))
+        if(playerGameObject.TryGetComponent<Player>(out Player player)&&collision.gameObject.tag == "Player")
         {
             player.inDarkness = true;
         }
