@@ -11,10 +11,12 @@ public class Player : MonoBehaviour
     public bool isFlashLight;
     public Sprite[] bloodSprite = new Sprite[5];
     public Image bloodImage;
+    public bool isDead;
+   // [SerializeField]private Animator deathScreen;
     // Start is called before the first frame update
     void Start()
     {
-        
+        isDead = false;   
     }
 
     // Update is called once per frame
@@ -41,10 +43,21 @@ public class Player : MonoBehaviour
         else if (health <= 0)
         {
             bloodImage.sprite = bloodSprite[4];
+            isDead = true;
+            //deathScreen.SetBool("isDead", true);
         }
         else if(health == 5)
         {
-            bloodImage.sprite = null;
+            bloodImage.sprite = bloodSprite[0];
+
         }
+
+        
+        //if(deathScreen.GetBool("isDead")==true)
+        //{
+        //    Debug.Log("zgon");
+           
+
+        //}
     }
 }
