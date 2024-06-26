@@ -170,13 +170,11 @@ public class Inventory : MonoBehaviour
 
     public void UseItem(int id)
     {
-        if(id==1 && flashLightCdown<=0)
+        if (id == 1)
         {
-            flashLight.SetActive(true);
-            isFlashLight = true;
-            
+            Debug.Log("magiczna flet");
         }
-        else if(id==2 && !isOverheated)
+        else if (id==2 && !isOverheated)
         {
             Debug.Log(id);
             musicBoxIsUsed = true;

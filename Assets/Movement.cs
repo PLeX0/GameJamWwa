@@ -47,6 +47,11 @@ public class Movement : MonoBehaviour
                 animator.SetBool("isMoving", false);
             }
         }
+        else if(player.isDead)
+        {
+            playerRb.velocity = new Vector2(0, 0);
+            audioSource.Stop();
+        }
        
 
        
