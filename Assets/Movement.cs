@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
 {
     public Rigidbody2D playerRb;
     public float speed;
-
+    public AudioSource audioSource;
 
      
     // Start is called before the first frame update
@@ -21,6 +21,13 @@ public class Movement : MonoBehaviour
 
         Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         playerRb.velocity = (movement * speed* Time.deltaTime);
+
+    
+        
+
+
+
+
 
     }
 }
