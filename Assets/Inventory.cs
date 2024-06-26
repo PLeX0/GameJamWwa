@@ -78,7 +78,7 @@ public class Inventory : MonoBehaviour
         }
         if (isOverheated)
         {
-            scrollCounter -= 0.2f;
+            scrollCounter -= 2f;
             if (scrollCounter <= 0)
             {
                 isOverheated = false;
@@ -88,7 +88,7 @@ public class Inventory : MonoBehaviour
         {
             flashLight.SetActive(true);
             isFlashLight = true;
-            scrollCounter -= 0.2f;
+            scrollCounter -= 2f;
             if(scrollCounter <= 0)
             {
                 musicBoxIsUsed = false;
@@ -150,7 +150,7 @@ public class Inventory : MonoBehaviour
                 isEmpty[i] = false;
                 itemId[i] = id;
                 if(i!=0)
-                this.gameObject.transform.position += new Vector3(-50f, 0, 0);
+                this.gameObject.transform.position += new Vector3(-100f, 0, 0);
                 if(id==1)
                 {
                     cDownText[i].SetActive(true);

@@ -39,4 +39,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (playerGameObject.TryGetComponent<Player>(out Player player))
+        {
+            player.inDarkness = false;
+        }
+    }
 }
