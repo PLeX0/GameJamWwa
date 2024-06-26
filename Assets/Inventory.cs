@@ -22,6 +22,7 @@ public class Inventory : MonoBehaviour
     public float scrollCounter;
     public float scrollResetTimer = 1f;
     public bool isOverheated;
+    public bool musicBoxIsUsed;
 
     // Start is called before the first frame update
     void Start()
@@ -42,9 +43,9 @@ public class Inventory : MonoBehaviour
     {
         if(isFlashLight)
         {
-           
+
             flashLightTime -= Time.deltaTime;
-            if(flashLightTime<=0)
+            if (flashLightTime <= 0)
             {
                 flashLightTime = 5f;
                 isFlashLight = false;
@@ -55,17 +56,17 @@ public class Inventory : MonoBehaviour
 
         if(isMusicBox)
         {
-            if((Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetAxis("Mouse ScrollWheel") < 0f) && !isOverheated)
+            if((Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetAxis("Mouse ScrollWheel") < 0f) && !isOverheated && !musicBoxIsUsed)
             {
                 scrollResetTimer = 1f;
                 Debug.Log("aaaaaaaa");
                 scrollCounter++;
-                if(scrollCounter >= 600)
+                if(scrollCounter > 600)
                 {
                     isOverheated = true;
                 }
             }
-            else if(Input.GetAxis("Mouse ScrollWheel") == 0f && !isOverheated)
+            else if(Input.GetAxis("Mouse ScrollWheel") == 0f && !isOverheated && !musicBoxIsUsed)
             {
                 scrollResetTimer -= Time.deltaTime;
                 if(scrollResetTimer<=0)
@@ -81,6 +82,18 @@ public class Inventory : MonoBehaviour
             if (scrollCounter <= 0)
             {
                 isOverheated = false;
+            }
+        }
+        if(musicBoxIsUsed)
+        {
+            flashLight.SetActive(true);
+            isFlashLight = true;
+            scrollCounter -= 0.2f;
+            if(scrollCounter <= 0)
+            {
+                musicBoxIsUsed = false;
+                isFlashLight = false;
+                flashLight.SetActive(false);
             }
         }
 
@@ -163,9 +176,10 @@ public class Inventory : MonoBehaviour
             isFlashLight = true;
             
         }
-        else if(id==2)
+        else if(id==2 && !isOverheated)
         {
             Debug.Log(id);
+            musicBoxIsUsed = true;
         }
         else if (id == 3)
         {

@@ -42,5 +42,9 @@ public class Player : MonoBehaviour
         {
             bloodImage.sprite = bloodSprite[4];
         }
+        else if(health == 5)
+        {
+            bloodImage.sprite = null;
+        }
     }
 }
