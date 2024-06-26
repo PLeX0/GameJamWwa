@@ -22,7 +22,24 @@ public class Movement : MonoBehaviour
         Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         playerRb.velocity = (movement * speed* Time.deltaTime);
 
-    
+        if(playerRb.velocity.x != 0)
+        {
+            if(!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else if (playerRb.velocity.y != 0)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            audioSource.Stop();
+        }
         
 
 
