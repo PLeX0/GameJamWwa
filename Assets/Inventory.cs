@@ -12,11 +12,17 @@ public class Inventory : MonoBehaviour
     public int[] itemId = new int[5];
     public GameObject[] cDownText = new GameObject[5];
     public bool[] isActivecDownText = new bool[5];
+    public bool[] isMusicBoxOnSlot = new bool[5];
     public GameObject flashLight;
     [SerializeField] private float flashLightTime = 5f;
     public float flashLightCdown = 5f;
     public bool isFlashLight;
+    public bool isMusicBox;
     public Player player;
+    public float scrollCounter;
+    public float scrollResetTimer = 1f;
+    public bool isOverheated;
+    public bool musicBoxIsUsed;
 
     // Start is called before the first frame update
     void Start()
@@ -37,9 +43,9 @@ public class Inventory : MonoBehaviour
     {
         if(isFlashLight)
         {
-           
+
             flashLightTime -= Time.deltaTime;
-            if(flashLightTime<=0)
+            if (flashLightTime <= 0)
             {
                 flashLightTime = 5f;
                 isFlashLight = false;
@@ -48,8 +54,50 @@ public class Inventory : MonoBehaviour
             }
         }
 
+        if(isMusicBox)
+        {
+            if((Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetAxis("Mouse ScrollWheel") < 0f) && !isOverheated && !musicBoxIsUsed)
+            {
+                scrollResetTimer = 1f;
+                Debug.Log("aaaaaaaa");
+                scrollCounter++;
+                if(scrollCounter > 600)
+                {
+                    isOverheated = true;
+                }
+            }
+            else if(Input.GetAxis("Mouse ScrollWheel") == 0f && !isOverheated && !musicBoxIsUsed)
+            {
+                scrollResetTimer -= Time.deltaTime;
+                if(scrollResetTimer<=0)
+                {
+                    scrollCounter = 0;
+                    scrollResetTimer = 1f;
+                }
+            }
+        }
+        if (isOverheated)
+        {
+            scrollCounter -= 0.2f;
+            if (scrollCounter <= 0)
+            {
+                isOverheated = false;
+            }
+        }
+        if(musicBoxIsUsed)
+        {
+            flashLight.SetActive(true);
+            isFlashLight = true;
+            scrollCounter -= 0.2f;
+            if(scrollCounter <= 0)
+            {
+                musicBoxIsUsed = false;
+                isFlashLight = false;
+                flashLight.SetActive(false);
+            }
+        }
 
-        if(flashLightCdown > 0 && flashLightCdown <= 5f)
+        if (flashLightCdown > 0 && flashLightCdown <= 5f)
         {
             flashLightCdown -= Time.deltaTime;
         }
@@ -62,6 +110,11 @@ public class Inventory : MonoBehaviour
                 cDownText[i].GetComponent<TMP_Text>().text = flashLightcDownInt.ToString();
                 if (flashLightCdown <= 0)
                     cDownText[i].GetComponent<TMP_Text>().text = " ";
+            }
+            if(isMusicBoxOnSlot[i])
+            {
+                int scrollCounterInt = (int)scrollCounter;
+                cDownText[i].GetComponent<TMP_Text>().text = ((scrollCounterInt / 6).ToString() + "%");
             }
         }
 
@@ -103,6 +156,12 @@ public class Inventory : MonoBehaviour
                     cDownText[i].SetActive(true);
                     isActivecDownText[i] = true;
                 }
+                else if(id==2)
+                {
+                    isMusicBox = true;
+                    isMusicBoxOnSlot[i] = true;
+                    cDownText[i].GetComponent<TMP_Text>().fontSize = 39f;
+                }
                 slotGameObj[i].SetActive(true);
                 break;
             }
@@ -117,9 +176,10 @@ public class Inventory : MonoBehaviour
             isFlashLight = true;
             
         }
-        else if(id==2)
+        else if(id==2 && !isOverheated)
         {
             Debug.Log(id);
+            musicBoxIsUsed = true;
         }
         else if (id == 3)
         {
