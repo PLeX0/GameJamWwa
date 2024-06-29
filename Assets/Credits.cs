@@ -18,7 +18,7 @@ public class Credits : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("MainMenu 1");
         }
     }
 }

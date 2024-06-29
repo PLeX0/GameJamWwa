@@ -23,6 +23,9 @@ public class Inventory : MonoBehaviour
     public float scrollResetTimer = 1f;
     public bool isOverheated;
     public bool musicBoxIsUsed;
+    public AudioClip nakrecanie;
+    public AudioClip muzyka;
+    public bool isNakrecana;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +44,7 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isFlashLight)
+        if (isFlashLight)
         {
 
             flashLightTime -= Time.deltaTime;
@@ -54,22 +57,24 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        if(isMusicBox)
+        if (isMusicBox)
         {
-            if((Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetAxis("Mouse ScrollWheel") < 0f) && !isOverheated && !musicBoxIsUsed)
+            if ((Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetAxis("Mouse ScrollWheel") < 0f) && !isOverheated && !musicBoxIsUsed)
             {
+                isNakrecana = true;
                 scrollResetTimer = 1f;
                 Debug.Log("aaaaaaaa");
                 scrollCounter++;
-                if(scrollCounter > 600)
+                if (scrollCounter > 600)
                 {
                     isOverheated = true;
                 }
             }
-            else if(Input.GetAxis("Mouse ScrollWheel") == 0f && !isOverheated && !musicBoxIsUsed)
+            else if (Input.GetAxis("Mouse ScrollWheel") == 0f && !isOverheated && !musicBoxIsUsed)
             {
+                isNakrecana = false;
                 scrollResetTimer -= Time.deltaTime;
-                if(scrollResetTimer<=0)
+                if (scrollResetTimer <= 0)
                 {
                     scrollCounter = 0;
                     scrollResetTimer = 1f;
@@ -78,23 +83,38 @@ public class Inventory : MonoBehaviour
         }
         if (isOverheated)
         {
-            scrollCounter -= 0.2f;
+            GetComponent<AudioSource>().Stop();
+            scrollCounter -= 2f;
             if (scrollCounter <= 0)
             {
                 isOverheated = false;
             }
         }
-        if(musicBoxIsUsed)
+        if (musicBoxIsUsed)
         {
+
             flashLight.SetActive(true);
             isFlashLight = true;
-            scrollCounter -= 0.2f;
-            if(scrollCounter <= 0)
+            scrollCounter -= 2f;
+            if (scrollCounter <= 0)
             {
                 musicBoxIsUsed = false;
                 isFlashLight = false;
                 flashLight.SetActive(false);
+                GetComponent<AudioSource>().loop = false;
+                GetComponent<AudioSource>().Stop();
             }
+        }
+
+        if (isNakrecana)
+        {
+            GetComponent<AudioSource>().clip = nakrecanie;
+            GetComponent<AudioSource>().loop = true;
+            GetComponent<AudioSource>().Play();
+        }
+        else if (!isNakrecana)
+        {
+            GetComponent<AudioSource>().Stop();
         }
 
         if (flashLightCdown > 0 && flashLightCdown <= 5f)
@@ -102,27 +122,27 @@ public class Inventory : MonoBehaviour
             flashLightCdown -= Time.deltaTime;
         }
 
-        for(int i = 0; i < slot.Length; i++)
+        for (int i = 0; i < slot.Length; i++)
         {
-            if(isActivecDownText[i])
+            if (isActivecDownText[i])
             {
                 int flashLightcDownInt = (int)flashLightCdown;
                 cDownText[i].GetComponent<TMP_Text>().text = flashLightcDownInt.ToString();
                 if (flashLightCdown <= 0)
                     cDownText[i].GetComponent<TMP_Text>().text = " ";
             }
-            if(isMusicBoxOnSlot[i])
+            if (isMusicBoxOnSlot[i])
             {
                 int scrollCounterInt = (int)scrollCounter;
                 cDownText[i].GetComponent<TMP_Text>().text = ((scrollCounterInt / 6).ToString() + "%");
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             UseItem(itemId[0]);
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             UseItem(itemId[1]);
         }
@@ -142,21 +162,21 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(int id, Sprite sprite)
     {
-        for(int i = 0; i<slot.Length; i++)
+        for (int i = 0; i < slot.Length; i++)
         {
-            if(isEmpty[i]==true)
+            if (isEmpty[i] == true)
             {
                 slot[i].sprite = sprite;
                 isEmpty[i] = false;
                 itemId[i] = id;
-                if(i!=0)
-                this.gameObject.transform.position += new Vector3(-50f, 0, 0);
-                if(id==1)
+                if (i != 0)
+                    this.gameObject.transform.position += new Vector3(-100f, 0, 0);
+                if (id == 1)
                 {
                     cDownText[i].SetActive(true);
                     isActivecDownText[i] = true;
                 }
-                else if(id==2)
+                else if (id == 2)
                 {
                     isMusicBox = true;
                     isMusicBoxOnSlot[i] = true;
@@ -174,9 +194,12 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log("magiczna flet");
         }
-        else if (id==2 && !isOverheated)
+        else if (id == 2 && !isOverheated)
         {
             Debug.Log(id);
+            GetComponent<AudioSource>().clip = muzyka;
+            GetComponent<AudioSource>().loop = true;
+            GetComponent<AudioSource>().Play();
             musicBoxIsUsed = true;
         }
         else if (id == 3)

@@ -30,7 +30,13 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (playerGameObject.TryGetComponent<Player>(out Player player))
+        {
+            player.inDarkness = false;
+        }
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (playerGameObject.TryGetComponent<Player>(out Player player))

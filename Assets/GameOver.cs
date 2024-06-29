@@ -24,6 +24,6 @@ public class GameOver : MonoBehaviour
 
     public void ResetGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Game");
     }
 }
