@@ -21,7 +21,10 @@ public class AudioManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         player.audioSource[player.soundIdMemory].Stop();
+        player.soundIdMemory = soundId;
         player.soundId = soundId;
+        player.audioSource[soundId].loop = true;
+        player.audioSource[soundId].Play();
         Debug.Log("asdadawdawdawdada");
     }
 }

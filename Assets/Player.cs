@@ -55,9 +55,6 @@ public class Player : MonoBehaviour
 
         }
 
-        audioSource[soundId].loop = true;
-        audioSource[soundId].Play();
-        soundIdMemory = soundId;
 
         //if(deathScreen.GetBool("isDead")==true)
         //{
