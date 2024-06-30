@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     public Sprite[] bloodSprite = new Sprite[5];
     public Image bloodImage;
     public bool isDead;
+    public int soundId;
+    public int soundIdMemory;
+    public AudioSource[] audioSource = new AudioSource[5];
    // [SerializeField]private Animator deathScreen;
     // Start is called before the first frame update
     void Start()
@@ -52,7 +55,10 @@ public class Player : MonoBehaviour
 
         }
 
-        
+        audioSource[soundId].loop = true;
+        audioSource[soundId].Play();
+        soundIdMemory = soundId;
+
         //if(deathScreen.GetBool("isDead")==true)
         //{
         //    Debug.Log("zgon");
